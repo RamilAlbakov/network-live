@@ -145,7 +145,7 @@ six = "1.9.0"
 
 [package.source]
 type = "file"
-url = "../enm_client_scripting-1.20.1-py2.py3-none-any.whl"
+url = "enm_client_scripting-1.20.1-py2.py3-none-any.whl"
 
 [[package]]
 name = "eradicate"
@@ -808,7 +808,7 @@ typing_extensions = ">=3.6,<5.0"
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "ff44eb841a42b3aa71a168d069c297b8142accb2514bc62164a35e5e382b7c38"
+content-hash = "95f859d04e7733dbef82f1e990b3db9c726642e93956be2eb30068b0f1ca02aa"
 
 [metadata.files]
 appnope = [

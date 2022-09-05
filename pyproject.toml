@@ -6,9 +6,9 @@ authors = ["Ramil Albakov <ralbakov10@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-enm-client-scripting = {path = "../enm_client_scripting-1.20.1-py2.py3-none-any.whl"}
 python-dotenv = "^0.21.0"
 cx-Oracle = "^8.3.0"
+enm-client-scripting = {path = "enm_client_scripting-1.20.1-py2.py3-none-any.whl"}
 
 [tool.poetry.dev-dependencies]
 wemake-python-styleguide = "^0.16.1"
