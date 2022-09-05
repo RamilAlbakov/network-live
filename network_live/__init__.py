@@ -1,1 +1,1 @@
-"""Parse all Kcell cells from own oss and from Beeline/Tele2 logs."""
+"""Parse all Kcell cells from own oss and from Beeline/Tele2 logs for Network Live db."""
