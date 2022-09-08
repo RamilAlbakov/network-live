@@ -20,6 +20,7 @@ def iot_main():
         enm_iot_data['iot_data'],
         enm_iot_data['last_parameter'],
         'iot',
+        {},
         add_site_data,
     )
 

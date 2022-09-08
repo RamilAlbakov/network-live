@@ -14,7 +14,6 @@ def add_site_data(cell):
     site_data = {
         'oss': 'ENM',
         'vendor': 'Ericsson',
-        'insert_date': '020922',
+        'insert_date': '080922',
     }
-
     return {**cell, **site_data}
