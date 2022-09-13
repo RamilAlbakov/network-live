@@ -46,7 +46,7 @@ def parse_ids(enm_id_data):
     return site_ids
 
 
-def add_non_cell_parameters(cell, enm_sectors, enm_site_ids, enm_ips):
+def add_non_cell_parameters(cell, enm_sectors, enm_site_ids, enm_ips, atoll_data):
     """
     Add to cell parameters object parameters related to non NRCellDU mo.
 
@@ -55,6 +55,7 @@ def add_non_cell_parameters(cell, enm_sectors, enm_site_ids, enm_ips):
         enm_sectors: ElementGroup
         enm_site_ids: ElementGroup
         enm_ips: ElementGroup
+        atoll_data: dict
 
     Returns:
         dict
@@ -62,16 +63,13 @@ def add_non_cell_parameters(cell, enm_sectors, enm_site_ids, enm_ips):
     common_data = {
         'oss': 'ENM',
         'vendor': 'Ericsson',
-        'insert_date': '060922',
-        'azimut': None,
-        'height': None,
-        'longitude': None,
-        'latitude': None,
+        'insert_date': '120922',
     }
     sectors = parse_sector_parameters(enm_sectors)
     site_ids = parse_ids(enm_site_ids)
     site_ips = parse_ips(enm_ips)
     site_name = cell['site_name']
+    cell_name = cell['cell_name']
 
     if not cell['nCI'].isnumeric():
         cell['nCI'] = None
@@ -80,6 +78,7 @@ def add_non_cell_parameters(cell, enm_sectors, enm_site_ids, enm_ips):
         'gNBId': site_ids[site_name],
         'ip_address': site_ips[site_name],
         **cell,
-        **sectors[cell['cell_name']],
+        **sectors[cell_name],
         **common_data,
+        **atoll_data[cell_name],
     }

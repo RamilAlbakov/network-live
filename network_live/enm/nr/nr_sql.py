@@ -34,3 +34,17 @@ class NrSql(object):
             :latitude
         )
     """
+    nr_select_sql = """
+        SELECT
+            atoll_mrat.xgcells5gnr.cell_id,
+            atoll_mrat.xgtransmitters.azimut,
+            atoll_mrat.xgtransmitters.height,
+            atoll_mrat.sites.longitude,
+            atoll_mrat.sites.latitude
+        FROM
+            atoll_mrat.xgtransmitters
+        INNER JOIN atoll_mrat.xgcells5gnr
+            ON atoll_mrat.xgcells5gnr.tx_id = atoll_mrat.xgtransmitters.tx_id
+        INNER JOIN atoll_mrat.sites
+            ON atoll_mrat.xgtransmitters.site_name = atoll_mrat.sites.name
+    """

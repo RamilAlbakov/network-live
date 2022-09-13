@@ -1,6 +1,7 @@
 """Work with oracle atoll db."""
 
 import os
+from collections import namedtuple
 
 import cx_Oracle
 
@@ -8,16 +9,18 @@ import cx_Oracle
 class Atoll(object):
     """Work with oralce atoll db."""
 
-    def __init__(self, delete_sql, insert_sql):
+    def __init__(self, delete_sql, insert_sql, select_sql=''):
         """
         Construct new atoll object.
 
         Args:
             delete_sql: string
             insert_sql: string
+            select_sql: string
         """
         self.delete_sql = delete_sql
         self.insert_sql = insert_sql
+        self.select_sql = select_sql
 
     def execute_sql(self, sql_command, sql_type, cells=()):
         """
@@ -43,7 +46,12 @@ class Atoll(object):
         ) as connection:
             cursor = connection.cursor()
             if sql_type == 'select':
-                return cursor.execute(sql_command).fetchall()
+                cursor.execute(sql_command)
+                cursor.rowfactory = namedtuple(
+                    'PhysicalParameters',
+                    ['cell_name', 'azimut', 'height', 'longitude', 'latitude'],
+                )
+                return cursor.fetchall()
             elif sql_type == 'delete':
                 cursor.execute(sql_command)
             else:
@@ -62,3 +70,33 @@ class Atoll(object):
             cells: deque object
         """
         self.execute_sql(self.insert_sql, 'insert', cells)
+
+    def handle_atoll_data(self, select_data):
+        """
+        Handle selected atoll data to dict.
+
+        Args:
+            select_data: list of tuples
+
+        Returns:
+            dict
+        """
+        atoll_data = {}
+        for cell in select_data:
+            atoll_data[cell.cell_name] = {
+                'azimut': cell.azimut,
+                'height': cell.height,
+                'longitude': cell.longitude,
+                'latitude': cell.latitude,
+            }
+        return atoll_data
+
+    def select_physical_parameters(self):
+        """
+        Select physical parameters from Atoll.
+
+        Returns:
+            dict
+        """
+        atoll_phys_parameters = self.execute_sql(self.select_sql, 'select')
+        return self.handle_atoll_data(atoll_phys_parameters)
